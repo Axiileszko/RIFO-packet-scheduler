@@ -6,6 +6,14 @@ Modern high-speed networks require efficient packet scheduling mechanisms to ens
 
 The RIFO (Ranked In-First-Out) scheduler, as proposed in recent research, aims to approximate the behavior of PIFO while maintaining implementation simplicity. In RIFO, packets are assigned integer rank values in advance, where lower values indicate higher priority. Instead of fully sorting packets, RIFO introduces a threshold-based dropping strategy: packets with ranks above a certain threshold are discarded, effectively controlling congestion while preserving important traffic.
 
+<p align="center">
+  <img src="The-general-architecture-of-RIFO.png" alt="RIFO diagram" width="650"/>
+</p>
+
+<p align="center">
+  <em>Image credit: ResearchGate</em>
+</p>
+
 This project aims to design and implement a RIFO packet scheduler using the P4 programming language, exploring how programmable data planes can support rank-based scheduling decisions.
 
 ## Design Overview
