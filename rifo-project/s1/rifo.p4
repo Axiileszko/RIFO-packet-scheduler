@@ -1,14 +1,6 @@
 #include <core.p4>
 #include <v1model.p4>
 
-struct headers {
-    ethernet_t ethernet;
-    rifo_t rifo;
-    ipv4_t ipv4;
-}
-
-struct metadata {}
-
 header ethernet_t {
     bit<48> dstAddr;
     bit<48> srcAddr;
@@ -20,6 +12,13 @@ header rifo_t {
     bit<16> rank; // Pozitív egész szám (alacsonyabb -> magasabb prioritás)
     bit<16> etherType; // Következő protokoll típusa
 }
+
+struct headers {
+    ethernet_t ethernet;
+    rifo_t rifo;
+}
+
+struct metadata {}
 
 parser MyParser(packet_in packet,
                 out headers hdr,
@@ -92,7 +91,7 @@ control MyComputeChecksum(inout headers hdr, inout metadata meta) {
     }
 }
 
-control MyDeparser(packet_out packet, inout headers hdr) {
+control MyDeparser(packet_out packet, in headers hdr) {
     apply {
         packet.emit(hdr.ethernet);
         packet.emit(hdr.rifo);
